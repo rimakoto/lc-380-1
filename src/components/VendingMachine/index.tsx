@@ -14,6 +14,7 @@ interface VendingMachineProps {
   fallingProduct: Product | null;
   onFallingComplete: () => void;
   showDispenserGlow: boolean;
+  isPreviewOpen: boolean;
 }
 
 export const VendingMachine = ({
@@ -23,6 +24,7 @@ export const VendingMachine = ({
   fallingProduct,
   onFallingComplete,
   showDispenserGlow,
+  isPreviewOpen,
 }: VendingMachineProps) => {
   const { playButtonClick, playDropSound } = useSound();
 
@@ -40,7 +42,7 @@ export const VendingMachine = ({
   return (
     <group>
       <MachineBody />
-      <Products inventory={inventory} onProductClick={handleProductClick} />
+      <Products inventory={inventory} onProductClick={handleProductClick} isPreviewOpen={isPreviewOpen} />
       <Dispenser hasProduct={showDispenserGlow} />
       <FallingProduct product={fallingProduct} onComplete={handleFallingComplete} />
     </group>

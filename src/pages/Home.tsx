@@ -96,6 +96,7 @@ const Home = () => {
             fallingProduct={fallingProduct}
             onFallingComplete={handleFallingComplete}
             showDispenserGlow={showDispenserGlow}
+            isPreviewOpen={isPreviewOpen}
           />
         </Scene>
       </div>

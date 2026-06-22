@@ -5,9 +5,10 @@ import { ProductItem } from './Product';
 interface ProductsProps {
   inventory: Record<string, boolean>;
   onProductClick: (product: Product) => void;
+  isPreviewOpen: boolean;
 }
 
-export const Products = ({ inventory, onProductClick }: ProductsProps) => {
+export const Products = ({ inventory, onProductClick, isPreviewOpen }: ProductsProps) => {
   const { rows, depth, dispenserHeight, topSignHeight, displayAreaTopMargin, displayAreaBottomMargin } = MACHINE_CONFIG;
 
   const displayAreaTop = MACHINE_CONFIG.height / 2 - topSignHeight - displayAreaTopMargin;
@@ -34,6 +35,7 @@ export const Products = ({ inventory, onProductClick }: ProductsProps) => {
           product={product}
           available={inventory[product.id] ?? true}
           onClick={onProductClick}
+          isPreviewOpen={isPreviewOpen}
         />
       ))}
     </group>

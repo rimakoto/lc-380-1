@@ -9,9 +9,10 @@ interface ProductItemProps {
   product: Product;
   available: boolean;
   onClick: (product: Product) => void;
+  isPreviewOpen: boolean;
 }
 
-export const ProductItem = ({ product, available, onClick }: ProductItemProps) => {
+export const ProductItem = ({ product, available, onClick, isPreviewOpen }: ProductItemProps) => {
   const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -41,7 +42,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
           <boxGeometry args={[0.7, 0.15, 0.02]} />
           <meshStandardMaterial color={'#424242'} transparent opacity={0.5} />
         </mesh>
-        <Html
+        {!isPreviewOpen && <Html
           position={[0, -0.3, 0.15]}
           center
           distanceFactor={8}
@@ -50,7 +51,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
           <div className="text-xs px-2 py-0.5 rounded bg-gray-700 text-gray-400 font-bold whitespace-nowrap">
             已售罄
           </div>
-        </Html>
+        </Html>}
       </group>
     );
   }
@@ -115,7 +116,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
         </group>
       )}
 
-      <Html
+      {!isPreviewOpen && <Html
         position={[0, -0.55, 0.15]}
         center
         distanceFactor={8}
@@ -129,9 +130,9 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
         >
           ¥{product.price.toFixed(1)}
         </div>
-      </Html>
+      </Html>}
 
-      {hovered && (
+      {!isPreviewOpen && hovered && (
         <Html
           position={[0, 0.65, 0.15]}
           center
