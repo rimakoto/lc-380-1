@@ -11,7 +11,7 @@ export const Scene = ({ children }: SceneProps) => {
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 2.5, 7.5], fov: 45 }}
+      camera={{ position: [0, 3.2, 8.5], fov: 42 }}
       gl={{ antialias: true, alpha: true }}
     >
       <color attach="background" args={['#1a1a2e']} />
@@ -57,11 +57,12 @@ export const Scene = ({ children }: SceneProps) => {
         enablePan={false}
         enableZoom={true}
         minDistance={6}
-        maxDistance={15}
-        minPolarAngle={Math.PI / 3.5}
-        maxPolarAngle={Math.PI / 2.2}
+        maxDistance={14}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI / 2.1}
         enableDamping
         dampingFactor={0.08}
+        target={[0, 3, 0]}
       />
 
       <EffectComposer>

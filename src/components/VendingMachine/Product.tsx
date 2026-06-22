@@ -15,11 +15,17 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
   const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
-  const { rows, rowSpacing, colSpacing, width, depth, frameThickness, dispenserHeight } = MACHINE_CONFIG;
+  const { rows, rowSpacing, colSpacing, depth, dispenserHeight, topSignHeight, displayAreaTopMargin, displayAreaBottomMargin } = MACHINE_CONFIG;
+
+  const displayAreaTop = MACHINE_CONFIG.height / 2 - topSignHeight - displayAreaTopMargin;
+  const displayAreaBottom = -MACHINE_CONFIG.height / 2 + dispenserHeight + displayAreaBottomMargin;
+
+  const totalHeight = displayAreaTop - displayAreaBottom;
+  const actualRowSpacing = totalHeight / (rows - 0.5);
 
   const x = (product.col - 1.5) * colSpacing;
-  const y = (rows - 1 - product.row) * rowSpacing - (rows - 1) * rowSpacing / 2 + dispenserHeight * 0.6 + 0.8;
-  const z = depth / 2 + 0.08;
+  const y = displayAreaTop - product.row * actualRowSpacing - actualRowSpacing * 0.25;
+  const z = depth / 2 - 0.35;
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
@@ -76,10 +82,6 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
             <torusGeometry args={[0.12, 0.025, 16, 32]} />
             <meshStandardMaterial color={'#A0A0A0'} metalness={0.8} roughness={0.25} />
           </mesh>
-          <mesh position={[0, 0, 0.26]}>
-            <planeGeometry args={[0.45, 0.35]} />
-            <meshStandardMaterial color={product.color} transparent opacity={0.95} />
-          </mesh>
         </group>
       ) : (
         <group>
@@ -97,7 +99,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
       )}
 
       <Html
-        position={[0, product.type === 'drink' ? -0.6 : -0.6, 0.05]}
+        position={[0, -0.55, 0.15]}
         center
         distanceFactor={8}
         style={{ pointerEvents: 'none', zIndex: 1 }}
@@ -114,7 +116,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
 
       {hovered && (
         <Html
-          position={[0, product.type === 'drink' ? 0.75 : 0.8, 0.05]}
+          position={[0, 0.7, 0.15]}
           center
           distanceFactor={8}
           style={{ pointerEvents: 'none', zIndex: 2 }}

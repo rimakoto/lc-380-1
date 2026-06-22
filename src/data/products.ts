@@ -31,7 +31,10 @@ export const MACHINE_CONFIG = {
   frameThickness: 0.2,
   rows: 5,
   cols: 4,
-  rowSpacing: 1.1,
+  rowSpacing: 1.0,
   colSpacing: 0.95,
-  dispenserHeight: 1.2,
+  dispenserHeight: 1.4,
+  topSignHeight: 0.6,
+  displayAreaTopMargin: 0.4,
+  displayAreaBottomMargin: 0.3,
 };
