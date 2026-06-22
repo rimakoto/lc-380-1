@@ -38,12 +38,12 @@ export const FallingProduct = ({ product, onComplete }: FallingProductProps) => 
 
     const startX = (product.col - 1.5) * colSpacing;
     const startY = displayTop - product.row * actualRowSpacing - actualRowSpacing * 0.25;
-    const startZ = depth / 2 - 0.35;
+    const startZ = depth / 2 - 0.05;
 
-    const midZ = depth / 2 - 0.9;
+    const midZ = depth / 2 - 0.7;
     const endX = 0;
     const endY = dispenserHeight * 0.45;
-    const endZ = depth / 2 - 0.7;
+    const endZ = depth / 2 - 0.55;
 
     const speed = 1.3;
     progressRef.current += delta * speed;

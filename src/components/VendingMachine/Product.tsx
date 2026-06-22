@@ -15,7 +15,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
   const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
-  const { rows, rowSpacing, colSpacing, depth, dispenserHeight, topSignHeight, displayAreaTopMargin, displayAreaBottomMargin } = MACHINE_CONFIG;
+  const { rows, colSpacing, depth, dispenserHeight, topSignHeight, displayAreaTopMargin, displayAreaBottomMargin } = MACHINE_CONFIG;
 
   const displayAreaTop = MACHINE_CONFIG.height / 2 - topSignHeight - displayAreaTopMargin;
   const displayAreaBottom = -MACHINE_CONFIG.height / 2 + dispenserHeight + displayAreaBottomMargin;
@@ -25,14 +25,14 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
 
   const x = (product.col - 1.5) * colSpacing;
   const y = displayAreaTop - product.row * actualRowSpacing - actualRowSpacing * 0.25;
-  const z = depth / 2 - 0.35;
+  const z = depth / 2 - 0.05;
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     if (available) onClick(product);
   };
 
-  const scale = hovered && available ? 1.12 : 1;
+  const scale = hovered && available ? 1.1 : 1;
 
   if (!available) {
     return (
@@ -42,7 +42,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
           <meshStandardMaterial color={'#424242'} transparent opacity={0.5} />
         </mesh>
         <Html
-          position={[0, -0.3, 0.02]}
+          position={[0, -0.3, 0.15]}
           center
           distanceFactor={8}
           style={{ pointerEvents: 'none' }}
@@ -64,34 +64,51 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
       onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
       onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
     >
+      <mesh visible={false}>
+        <boxGeometry args={[0.75, 0.85, 0.35]} />
+        <meshBasicMaterial transparent opacity={0} />
+      </mesh>
+
       {product.type === 'drink' ? (
         <group>
           <mesh castShadow>
-            <cylinderGeometry args={[0.28, 0.28, 0.65, 32]} />
-            <meshStandardMaterial color={product.color} metalness={0.4} roughness={0.35} />
+            <cylinderGeometry args={[0.26, 0.26, 0.6, 32]} />
+            <meshStandardMaterial
+              color={product.color}
+              metalness={0.3}
+              roughness={0.4}
+              emissive={product.color}
+              emissiveIntensity={0.15}
+            />
           </mesh>
-          <mesh position={[0, 0.33, 0]}>
-            <cylinderGeometry args={[0.28, 0.26, 0.05, 32]} />
-            <meshStandardMaterial color={'#C0C0C0'} metalness={0.9} roughness={0.2} />
+          <mesh position={[0, 0.31, 0]}>
+            <cylinderGeometry args={[0.26, 0.24, 0.04, 32]} />
+            <meshStandardMaterial color={'#D0D0D0'} metalness={0.9} roughness={0.2} />
           </mesh>
-          <mesh position={[0, -0.33, 0]}>
-            <cylinderGeometry args={[0.26, 0.28, 0.05, 32]} />
-            <meshStandardMaterial color={'#C0C0C0'} metalness={0.9} roughness={0.2} />
+          <mesh position={[0, -0.31, 0]}>
+            <cylinderGeometry args={[0.24, 0.26, 0.04, 32]} />
+            <meshStandardMaterial color={'#D0D0D0'} metalness={0.9} roughness={0.2} />
           </mesh>
-          <mesh position={[0, 0.36, 0]}>
-            <torusGeometry args={[0.12, 0.025, 16, 32]} />
-            <meshStandardMaterial color={'#A0A0A0'} metalness={0.8} roughness={0.25} />
+          <mesh position={[0, 0.34, 0]}>
+            <torusGeometry args={[0.1, 0.02, 12, 24]} />
+            <meshStandardMaterial color={'#B0B0B0'} metalness={0.8} roughness={0.25} />
           </mesh>
         </group>
       ) : (
         <group>
           <mesh castShadow>
-            <boxGeometry args={[0.6, 0.7, 0.25]} />
-            <meshStandardMaterial color={product.color} metalness={0.1} roughness={0.75} />
+            <boxGeometry args={[0.55, 0.65, 0.22]} />
+            <meshStandardMaterial
+              color={product.color}
+              metalness={0.1}
+              roughness={0.7}
+              emissive={product.color}
+              emissiveIntensity={0.12}
+            />
           </mesh>
-          {[-0.22, -0.11, 0, 0.11, 0.22].map((py, i) => (
-            <mesh key={i} position={[0, py * 0.7, 0.13]} rotation={[0, 0, (i % 2 === 0 ? 0.15 : -0.15)]}>
-              <boxGeometry args={[0.55, 0.015, 0.01]} />
+          {[-0.2, -0.1, 0, 0.1, 0.2].map((py, i) => (
+            <mesh key={i} position={[0, py * 0.65, 0.115]} rotation={[0, 0, (i % 2 === 0 ? 0.12 : -0.12)]}>
+              <boxGeometry args={[0.5, 0.012, 0.01]} />
               <meshStandardMaterial color={product.color} metalness={0.1} roughness={0.8} />
             </mesh>
           ))}
@@ -102,10 +119,10 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
         position={[0, -0.55, 0.15]}
         center
         distanceFactor={8}
-        style={{ pointerEvents: 'none', zIndex: 1 }}
+        style={{ pointerEvents: 'none', zIndex: -1 }}
       >
         <div
-          className={`px-2 py-0.5 rounded-md font-bold text-sm whitespace-nowrap shadow-lg transition-all duration-200 ${
+          className={`px-1.5 py-0.5 rounded-md font-bold text-xs whitespace-nowrap shadow-md transition-all duration-200 ${
             hovered ? 'scale-110 ring-2 ring-yellow-400' : ''
           }`}
           style={{ backgroundColor: product.labelColor, color: product.color }}
@@ -116,10 +133,10 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
 
       {hovered && (
         <Html
-          position={[0, 0.7, 0.15]}
+          position={[0, 0.65, 0.15]}
           center
           distanceFactor={8}
-          style={{ pointerEvents: 'none', zIndex: 2 }}
+          style={{ pointerEvents: 'none', zIndex: -1 }}
         >
           <div className="px-3 py-1 rounded-lg bg-black/80 text-white font-bold text-xs whitespace-nowrap backdrop-blur-sm">
             {product.name}

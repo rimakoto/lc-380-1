@@ -61,9 +61,9 @@ export const MachineBody = () => {
         <meshStandardMaterial color={innerColor} />
       </mesh>
 
-      <pointLight position={[0, displayCenterY, depth / 2 - 0.4]} intensity={0.8} color={'#FFF8E1'} distance={5} />
+      <pointLight position={[0, displayCenterY, depth / 2 - 0.15]} intensity={1.0} color={'#FFF8E1'} distance={6} />
       {[-1.3, 1.3].map((px) => (
-        <pointLight key={`inner-${px}`} position={[px, displayCenterY + 0.3, depth / 2 - 0.5]} intensity={0.4} color={'#FFFFFF'} distance={4} />
+        <pointLight key={`inner-${px}`} position={[px, displayCenterY + 0.3, depth / 2 - 0.2]} intensity={0.6} color={'#FFFFFF'} distance={5} />
       ))}
 
       {[-1, 1].map((side) => (
