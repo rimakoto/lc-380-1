@@ -19,7 +19,7 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
 
   const x = (product.col - 1.5) * colSpacing;
   const y = (rows - 1 - product.row) * rowSpacing - (rows - 1) * rowSpacing / 2 + dispenserHeight * 0.6 + 0.8;
-  const z = depth / 2 - 0.35;
+  const z = depth / 2 + 0.08;
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
@@ -97,10 +97,10 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
       )}
 
       <Html
-        position={[0, product.type === 'drink' ? -0.55 : -0.55, 0.2]}
+        position={[0, product.type === 'drink' ? -0.6 : -0.6, 0.05]}
         center
         distanceFactor={8}
-        style={{ pointerEvents: 'none' }}
+        style={{ pointerEvents: 'none', zIndex: 1 }}
       >
         <div
           className={`px-2 py-0.5 rounded-md font-bold text-sm whitespace-nowrap shadow-lg transition-all duration-200 ${
@@ -114,10 +114,10 @@ export const ProductItem = ({ product, available, onClick }: ProductItemProps) =
 
       {hovered && (
         <Html
-          position={[0, product.type === 'drink' ? 0.7 : 0.75, 0.2]}
+          position={[0, product.type === 'drink' ? 0.75 : 0.8, 0.05]}
           center
           distanceFactor={8}
-          style={{ pointerEvents: 'none' }}
+          style={{ pointerEvents: 'none', zIndex: 2 }}
         >
           <div className="px-3 py-1 rounded-lg bg-black/80 text-white font-bold text-xs whitespace-nowrap backdrop-blur-sm">
             {product.name}

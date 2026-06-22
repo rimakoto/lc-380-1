@@ -28,23 +28,33 @@ export const MachineBody = () => {
         <meshStandardMaterial color={innerColor} />
       </mesh>
 
-      <mesh position={[0, (height - frameThickness * 2) / 2 - 0.45, depth / 2 + 0.02]} receiveShadow>
-        <meshPhysicalMaterial
-          color={'#FFFFFF'}
-          transmission={0.95}
-          thickness={0.1}
-          roughness={0.05}
-          metalness={0}
-          ior={1.5}
-          transparent
-          opacity={0.3}
-        />
+      <mesh
+        position={[0, (height - frameThickness * 2) / 2 - 0.45, depth / 2 + 0.04]}
+        raycast={() => null}
+      >
         <boxGeometry args={[
           width - frameThickness * 3,
           height - dispenserHeight - frameThickness * 3.5,
-          0.05
+          0.02
         ]} />
+        <meshPhysicalMaterial
+          color={'#E8F0FE'}
+          transmission={0.98}
+          thickness={0.02}
+          roughness={0.08}
+          metalness={0}
+          ior={1.2}
+          transparent
+          opacity={0.12}
+          clearcoat={0.1}
+          clearcoatRoughness={0.3}
+        />
       </mesh>
+
+      <pointLight position={[0, height / 2 - 1.5, depth / 2 - 0.4]} intensity={0.9} color={'#FFF8E1'} distance={6} />
+      {[-1.2, 1.2].map((px) => (
+        <pointLight key={`inner-${px}`} position={[px, height / 2 - 2, depth / 2 - 0.5]} intensity={0.5} color={'#FFFFFF'} distance={4} />
+      ))}
 
       <mesh position={[0, height / 2 - 0.3, depth / 2 + 0.05]}>
         <boxGeometry args={[width - frameThickness * 4, 0.5, 0.1]} />

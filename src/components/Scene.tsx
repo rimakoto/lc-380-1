@@ -11,17 +11,17 @@ export const Scene = ({ children }: SceneProps) => {
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 2, 9], fov: 40 }}
+      camera={{ position: [0, 2.5, 7.5], fov: 45 }}
       gl={{ antialias: true, alpha: true }}
     >
       <color attach="background" args={['#1a1a2e']} />
 
       <fog attach="fog" args={['#1a1a2e', 15, 35]} />
 
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.7} />
       <directionalLight
-        position={[5, 8, 5]}
-        intensity={1.2}
+        position={[4, 7, 6]}
+        intensity={0.9}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -31,13 +31,13 @@ export const Scene = ({ children }: SceneProps) => {
         shadow-camera-top={10}
         shadow-camera-bottom={-10}
       />
-      <pointLight position={[-5, 3, -3]} intensity={0.6} color={'#82B1FF'} />
-      <pointLight position={[4, 2, -4]} intensity={0.4} color={'#FF8A65'} />
+      <pointLight position={[-5, 3, -3]} intensity={0.4} color={'#82B1FF'} />
+      <pointLight position={[4, 2, -4]} intensity={0.3} color={'#FF8A65'} />
       <rectAreaLight
-        width={8}
-        height={6}
-        intensity={1.5}
-        position={[0, 4, 3]}
+        width={6}
+        height={5}
+        intensity={0.8}
+        position={[0, 5, 4]}
         color={'#FFFFFF'}
       />
 
@@ -66,9 +66,9 @@ export const Scene = ({ children }: SceneProps) => {
 
       <EffectComposer>
         <Bloom
-          intensity={0.6}
-          luminanceThreshold={0.4}
-          luminanceSmoothing={0.9}
+          intensity={0.35}
+          luminanceThreshold={0.6}
+          luminanceSmoothing={0.85}
           mipmapBlur
         />
       </EffectComposer>
